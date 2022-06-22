@@ -2,56 +2,43 @@ const Cinema = function (films) {
   this.films = films;
 };
 
-Cinema.prototype.filmTitles = function(){
-  const filmTitles = [];
-  this.films.forEach((film) => {
-    filmTitles.push(film.title)
+Cinema.prototype.filmTitles = function () {
+  return this.films.map((film) => {
+    return film.title;
   });
-  return filmTitles;
-}
+};
 
 Cinema.prototype.filmByTitle = function (title) {
-  const foundFilm = this.films.filter((film) => {
+  return this.films.find((film) => {
     return film.title === title;
   });
-  return foundFilm;
 };
 
-Cinema.prototype.filmByGenre = function (genre) {
-  const filmsInGenre = []
-  const foundGenre = this.films.filter((film) => {
-    if (film.genre === genre){
-      filmsInGenre.push(film)
-    }
+Cinema.prototype.filmsByGenre = function (genre) {
+  return this.films.filter((film) => {
+    return film.genre === genre;
   });
-  return filmsInGenre;
 };
 
-Cinema.prototype.filmByYear = function (year) {
-  const filmsInYear = []
-  const foundYear = this.films.filter((film) => {
-    if (film.year === year){
-      filmsInYear.push(film)
-    }
+Cinema.prototype.hasFilmsFromYear = function (year) {
+  return this.films.some((film) => {
+    return film.year === year;
   });
-  return filmsInYear;
 };
 
-Cinema.prototype.filmsOverLength = function (length) {
-  const result = this.films.every((film) => {
-    return film.length > length;
-  })
-  return result;
+Cinema.prototype.areAllFilmsOfMinLength = function (length) {
+  return this.films.every((film) => {
+    return film.length >= length;
+  });
 };
 
-
-Cinema.prototype.totalFilmsLength = function () {
-  const result = this.films.reduce((runningTotal, film) => {
-    return runningTotal + film.length;
+Cinema.prototype.totalRunningTime = function () {
+  return this.films.reduce((total, film) => {
+    return total += film.length;
   }, 0);
-  return result;
 };
 
+//extension:
 
 Cinema.prototype.filmByProperty = function (property, value) {
   const result = this.films.filter((film) => {
